@@ -8,7 +8,7 @@ id int auto_increment primary key,
 name varchar(30) not null
 );
 
-create table roles (
+create table role (
 id int auto_increment primary key,
 title varchar(30) not null,
 salary decimal (10,2) not null,

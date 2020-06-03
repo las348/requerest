@@ -63,7 +63,8 @@ function viewDepartments() {
 
 function viewRoles() {
   connection.query(
-    `SELECT * FROM roles`,
+    `select title, salary, name from role 
+    inner join department on role.department_id=department.id`,
     function (err, results) {
       if (err) throw err;
       console.table(results);
@@ -74,7 +75,9 @@ function viewRoles() {
 
 function viewEmployees() {
   connection.query(
-    `SELECT * FROM employee`,
+    `select first_name, last_name, title, salary, name from employee 
+    inner join role on employee.role_id=role.id 
+    inner join department on role.department_id=department.id`,
     function (err, results) {
       if (err) throw err;
       console.table(results);
@@ -126,17 +129,16 @@ function addRole() {
             }
         ])
 
-        connection.query (`insert into roles (title, salary, department_id) values('${roleInfo.title}','${roleInfo.salary}','${roleInfo.department_id}' )`, printResults)
+        connection.query (`insert into role (title, salary, department_id) values('${roleInfo.title}','${roleInfo.salary}','${roleInfo.department_id}' )`, printResults)
 
     })
 }
 
 function addEmployee() {
-    connection.query ("select * from roles", async function(err, results) {
+    connection.query ("select * from role", async function(err, results) {
 
         const roles = results.map ( (result) => ({
-            name:result.title,
-            // title:result.title, 
+            name:result.title, 
             value:result.id
         }) )
 
