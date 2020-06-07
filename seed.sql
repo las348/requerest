@@ -1,15 +1,30 @@
-insert into department (name)
-values ('Sales'), ('Engineering'), ('Finance'), ('Legal');
+INSERT INTO department (name)
+VALUES 
+("Sales"), 
+("Accounting"), 
+("Customer Service"), 
+("HR");
 
-select * from department;
+INSERT INTO role (title, salary, department_id)
+VALUES 
+("Sr Sales Rep", 100000, 1), 
+("Sales Rep", 80000, 1),
+("Sr Accountant", 120000, 2),
+("Accountant", 95000, 2),
+("Customer Service Rep", 80000, 3),
+("HR Rep", 110000, 4),
+("Receptionist", 70000, 4);
 
-insert into role (title, salary, department_id)
-values ('Sales Lead', 100000, 1), ('Accountant', 120000, 3), ('CTO', 500000, 2), ('Lawyer', 150000, 2);
-
-select * from role;
-
-insert into employee (first_name, last_name, role_id)
-values ('Chu', 'Chu',1), ('Kobe', 'Kobe', 2), ('Dan', 'Dan', 3), ('Steve', 'Steve', 4);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES 
+("Jim", "Halpert", 1, 1),
+("Dwight", "Schrute", 2, 1),
+("Pam", "Beesly", 7, null),
+("Stanley", "Hudson", 2, 1),
+("Angela", "Martin", 3, null),
+("Kevin", "Malone", 4, 2),
+("Oscar", "Martinez", 4, 2),
+("Toby", "Flenderson", 6, 4);
 
 select * from employee;
 

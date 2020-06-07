@@ -23,32 +23,48 @@ connection.connect(function (err) {
 });
 
 function start() {
+
+  console.log("\n=============================")
+  console.log("------ EMPLOYEE TRACKER -----");
+  console.log("=============================\n")
+
   inquirer
     .prompt({
       name: "userInput",
       type: "list",
       message:
-        "What would you like to do [VIEW DEPARTMENTS], [VIEW ROLES], [VIEW EMPLOYEES], [ADD DEPARTMENTS], [ADD ROLES], [ADD EMPLOYEES], [UPDATE EMPLOYEE ROLE] [EXIT]?",
-      choices: ["VIEW_DEPARTMENTS", "VIEW_ROLES", "VIEW_EMPLOYEES", "ADD_DEPARTMENTS", "ADD_ROLES", "ADD_EMPLOYEES", "UPDATE_EMPLOYEE_ROLE", "EXIT"],
+      "What would you like to do?",
+      choices: ["VIEW_DEPARTMENTS", "VIEW_ROLES", "VIEW_EMPLOYEES", "ADD_DEPARTMENTS", "ADD_ROLES", "ADD_EMPLOYEES", "UPDATE_EMPLOYEE_ROLE", "UPDATE_MANAGER", "EXIT"],
     })
     .then(function (answer) {
-      // based on their answer, either call the bid or the post functions
-      if (answer.userInput === "VIEW_DEPARTMENTS") {
-        viewDepartments();
-      } else if (answer.userInput === "VIEW_ROLES") {
-        viewRoles();
-      } else if (answer.userInput === "VIEW_EMPLOYEES") {
-        viewEmployees();
-      } else if (answer.userInput === "ADD_DEPARTMENTS") {
-        addDepartment();
-      } else if (answer.userInput === "ADD_ROLES") {
-        addRole();
-      } else if (answer.userInput === "ADD_EMPLOYEES") {
-        addEmployee();
-      } else if (answer.userInput === "UPDATE_EMPLOYEE_ROLE") {
-        update_Employee();
-      }else {
-        connection.end();
+      switch (answer.userInput) {
+        case "VIEW_DEPARTMENTS":
+          viewDepartments();
+          break;
+        case "VIEW_ROLES":
+          viewRoles();
+          break;
+        case "VIEW_EMPLOYEES":
+          viewEmployees();
+          break;
+        case "ADD_DEPARTMENTS":
+          addDepartment();
+          break;
+        case "ADD_ROLES":
+          addRole();
+          break;
+        case "ADD_EMPLOYEES":
+          addEmployee();
+          break;
+        case "UPDATE_EMPLOYEE_ROLE":
+          update_Employee();
+          break;
+        case "UPDATE_MANAGER":
+          update_Manager();
+          break;
+        case "EXIT":
+        default:
+          connection.end();
       }
     });
 }
@@ -202,3 +218,37 @@ function update_Employee() {
     })
 
 }
+
+
+// function update_Manager() {
+
+//   connection.query("select * from employee", async function (err, employees) {
+
+//     const employeeChoices = employees.map((employee) => ({
+//       name: employee.first_name + " " + employee.last_name,
+//       value: employee.id
+//     }))
+
+//     const manager = employees.map((results) => ({
+//       managerID: results.manager_id
+//     }))
+
+//     const updateManager = await inquirer.prompt([
+//       {
+//         type: "list",
+//         name: "employee_id",
+//         message: "Which employee would you like to update?",
+//         choices: employeeChoices
+//       },
+//       {
+//         type: "list",
+//         name: "manager_id",
+//         message: "Who would you like their new manager to be?",
+//         choices: manager
+//       }
+//     ])
+
+//     connection.query(`update employee set role_id=${updateManager.manager_id} where id=${updateManager.employee_id}`, printResults)
+
+//   })
+// }

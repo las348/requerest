@@ -19,5 +19,7 @@ create table employee (
 id int not null auto_increment primary key,
 first_name varchar(30) not null,
 last_name varchar(30) not null,
-role_id int not null
+role_id int not null,
+manager_id int,
+FOREIGN KEY (manager_id) REFERENCES employee (id)
 );
