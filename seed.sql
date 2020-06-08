@@ -21,12 +21,12 @@ INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 
 ("Jim", "Halpert", 1, null),
 ("Dwight", "Schrute", 2, 1),
-("Pam", "Beesly", 7, null),
+("Pam", "Beesly", 8, null),
 ("Stanley", "Hudson", 2, 1),
 ("Angela", "Martin", 3, null),
 ("Kevin", "Malone", 4, 5),
 ("Oscar", "Martinez", 4, 5),
-("David", "Wallace", 4, null),
+("David", "Wallace", 7, null),
 ("Toby", "Flenderson", 6, 8);
 
 select * from employee;

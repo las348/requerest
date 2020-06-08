@@ -33,7 +33,7 @@ function start() {
       type: "list",
       message:
         "What would you like to do?",
-      choices: ["VIEW_DEPARTMENTS", "VIEW_ROLES", "VIEW_EMPLOYEES", "VIEW_MANAGERS", "ADD_DEPARTMENTS", "ADD_ROLES", "ADD_EMPLOYEES", "UPDATE_EMPLOYEE_ROLE", "UPDATE_MANAGER", "EXIT"],
+      choices: ["VIEW_DEPARTMENTS", "VIEW_ROLES", "VIEW_EMPLOYEES", "VIEW_MANAGERS", "ADD_DEPARTMENTS", "ADD_ROLES", "ADD_EMPLOYEES", "UPDATE_EMPLOYEE_ROLE", "UPDATE_MANAGER", "DELETE_EMPLOYEE", "EXIT"],
     })
     .then(function (answer) {
       switch (answer.userInput) {
@@ -63,6 +63,9 @@ function start() {
           break;
         case "UPDATE_MANAGER":
           update_Manager();
+          break;
+        case "DELETE_EMPLOYEE":
+          delEmployee();
           break;
         case "EXIT":
         default:
@@ -247,11 +250,6 @@ function update_Manager() {
       value: employee.id
     }))
 
-    // const managerChoices = employees.map((managers) => ({
-    //   name: managers.first_name + " " + managers.last_name,
-    //   value: managers.manager_id
-    // }))
-
     const updateManager = await inquirer.prompt([
       {
         type: "list",
@@ -272,3 +270,23 @@ function update_Manager() {
   })
 }
 
+function delEmployee() {
+
+  connection.query("SELECT * FROM employee", async function (err, employees) {
+
+    const employeeChoices = employees.map((employee) => ({
+      name: employee.first_name + " " + employee.last_name,
+      value: employee.id
+    }))
+
+    const deleteEmployee = await inquirer.prompt([
+      {
+        type: "list",
+        name: "employee_id",
+        message: "Which employee would you like to delete?",
+        choices: employeeChoices
+      }
+    ])
+    connection.query(`DELETE FROM employee WHERE id=${deleteEmployee.employee_id}`, printResults);
+  })
+}
