@@ -247,10 +247,10 @@ function update_Manager() {
       value: employee.id
     }))
 
-    const managerChoices = employees.map((managers) => ({
-      name: managers.first_name + " " + managers.last_name,
-      value: managers.manager_id
-    }))
+    // const managerChoices = employees.map((managers) => ({
+    //   name: managers.first_name + " " + managers.last_name,
+    //   value: managers.manager_id
+    // }))
 
     const updateManager = await inquirer.prompt([
       {
@@ -263,7 +263,7 @@ function update_Manager() {
         type: "list",
         name: "manager_id",
         message: "Who would you like their new manager to be?",
-        choices: managerChoices
+        choices: employeeChoices
       }
     ])
 
