@@ -93,7 +93,7 @@ function viewRoles() {
 
 function viewEmployees() {
   connection.query(
-    `select first_name, last_name, title, salary, name from employee 
+    `select first_name, last_name, manager_id, title, salary, name from employee 
     inner join role on employee.role_id=role.id 
     inner join department on role.department_id=department.id`,
     function (err, results) {
@@ -220,20 +220,15 @@ function update_Employee() {
 }
 
 
-// function viewManagers() {
-//   connection.query(
-//     `SELECT first_name, last_name, manager_id FROM employee WHERE manager_id is not null`,
-//     function (err, results) {
-//       if (err) throw err;
-//       console.table(results);
-//       start();
-//     }
-//   );
-// }
-
 function viewManagers() {
   connection.query(
-    `SELECT first_name, last_name, manager_id FROM employee WHERE manager_id is not null`,
+    `SELECT 
+    CONCAT(m.last_name, ', ', m.first_name) AS Manager,
+    CONCAT(e.last_name, ', ', e.first_name) AS 'Direct report'
+    FROM employee m
+    INNER JOIN employee e ON 
+    m.id = e.manager_id
+    ORDER BY Manager ASC`,
     function (err, results) {
       if (err) throw err;
       console.table(results);

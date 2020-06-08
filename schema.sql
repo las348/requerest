@@ -23,3 +23,4 @@ role_id int not null,
 manager_id int,
 FOREIGN KEY (manager_id) REFERENCES employee (id)
 );
+
